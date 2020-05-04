@@ -2,8 +2,8 @@ def makeOAR( EXEC_DIR, node, core, tpartitionime, PYFIL, argv):
 	someFile = open( 'oarScript.sh', 'w' )
 	print >> someFile, '#!/bin/bash\n'
 	print >> someFile, 'EXEC_DIR=%s\n' %( EXEC_DIR )
-#	print >> someFile, 'jupyter nbconvert --execute %s/%s --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.allow_errors=True'%(EXEC_DIR,PYFIL)
-	print >> someFile, 'papermill %s/%s ./output.ipynb %s'%(EXEC_DIR,PYFIL,argv) #--- run notebook with a list of passes params
+	print >> someFile, 'papermill --prepare-only %s/%s ./output.ipynb %s'%(EXEC_DIR,PYFIL,argv) #--- write notebook with a list of passed params
+	print >> someFile, 'jupyter nbconvert --execute %s/output.ipynb --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.allow_errors=True'%(EXEC_DIR)
 	someFile.close()										  
 #
 if __name__ == '__main__':
@@ -17,7 +17,7 @@ if __name__ == '__main__':
 	mem = '8gb'
 	partition = 'single'
 	argv = "-p n_thresh 1.0"
-	argv += "-p SWARM_PATH \'%s\'"%(readPath+'/dataset/Oklahoma/TableS1.csv') 
+	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Oklahoma/TableS1.csv') 
 	PYFILdic = { 
 		0:'DifferentThresholds.ipynb',
 		}
