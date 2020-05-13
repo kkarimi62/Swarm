@@ -9,19 +9,22 @@ def makeOAR( EXEC_DIR, node, core, tpartitionime, PYFIL, argv):
 if __name__ == '__main__':
 	import os
 #
-	nruns	 = 8
-	jobname  = 'multipleNth' 
+	nruns	 = 1
+	jobname  = 'runMogul' 
 	readPath = os.getcwd() # + '/CLUSTER' # --- source
 	EXEC_DIR = '.'     #--- path for executable file
 	durtn = '23:59:59'
 	mem = '8gb'
 	partition = 'single'
-	argv = "-p n_thresh 1.0"
-	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Oklahoma/TableS1.csv') 
+#	argv = "-p n_thresh 1.0"
+	argv = "-p Df 2.0"
+#	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Oklahoma/TableS1.csv') 
+	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Mogul2008/catalog.csv') 
 	PYFILdic = { 
 		0:'DifferentThresholds.ipynb',
+		1:'Mogul2008.ipynb'
 		}
-	keyno = 0
+	keyno = 1
 #---
 #---
 	PYFIL = PYFILdic[ keyno ] 
