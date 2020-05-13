@@ -13,9 +13,9 @@ if __name__ == '__main__':
 	jobname  = 'runMogul' 
 	readPath = os.getcwd() # + '/CLUSTER' # --- source
 	EXEC_DIR = '.'     #--- path for executable file
-	durtn = '23:59:59'
-	mem = '8gb'
-	partition = 'single'
+	durtn = '00:59:59'
+	mem = '2gb'
+	partition = 'parallel' #'single'
 #	argv = "-p n_thresh 1.0"
 	argv = "-p Df 2.0"
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Oklahoma/TableS1.csv') 
