@@ -2,6 +2,7 @@ import os
 import sys
 
 ffile=sys.argv[1]
-for i in xrange(5):
-    os.system('cp runMogul%s/Run0/%s ../../%s.%s.png'%(i,ffile,ffile,i))
+for i in xrange(8):
+#    os.system('cp runMogul%s/Run0/%s.png ../../%s.%s.png'%(i,ffile,ffile,i))
+    os.system('cp runFillmore2015/Run%s/%s.png ../../%s.%s.png'%(i,ffile,ffile,i))
 
