@@ -1,0 +1,6 @@
+Input Notebook:  /home/kamran.karimi1/Project/git/Swarm/runFillmore/Run0/Fillmore2015.ipynb
+Output Notebook: ./output.ipynb
+Input notebook does not contain a cell with tag 'parameters'
+[NbConvertApp] Converting notebook /home/kamran.karimi1/Project/git/Swarm/runFillmore/Run0/output.ipynb to html
+[NbConvertApp] Executing notebook with kernel: python2
+slurmstepd: error: *** JOB 5553107 ON cn053 CANCELLED AT 2020-05-14T01:08:55 ***

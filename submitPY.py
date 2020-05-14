@@ -6,12 +6,11 @@ if __name__ == '__main__':
 	lnums = [ 13, 20 ]
 	string=open('Swarm.py').readlines() #--- python script
 	#---
-	nphi = 5
+	nphi = 7
 #	PHI = np.logspace(-5.0,2.0,nphi,endpoint=True)
-	PHI = np.linspace(1.9,2.3,nphi,endpoint=True)
+	PHI = np.linspace(2.0,2.6,nphi,endpoint=True)
 	#---
-	jobname = 'runMogul'
-
+	jobname = 'runFillmore'
 
 
 	for iphi in xrange( nphi ):
