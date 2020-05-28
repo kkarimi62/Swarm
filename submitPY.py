@@ -8,11 +8,16 @@ if __name__ == '__main__':
 	#---
 	nphi = 7
 #	PHI = np.logspace(-5.0,2.0,nphi,endpoint=True)
-	PHI = np.linspace(2.0,2.6,nphi,endpoint=True)
+	PHI = np.linspace(2.3,2.9,nphi,endpoint=True)
 	#---
-	jobname = 'runFillmore'
+	nn = 4
+	NTHRESH = np.linspace(0.05,0.11,nn,endpoint=True)
+	#---
+	jobname = 'runMogul'
 
-
+	PHI = [[PHI[iphi],NTHRESH[inn]] for iphi in xrange( nphi ) for inn in xrange(nn)]
+	nphi = len(PHI)
+	
 	for iphi in xrange( nphi ):
 	#---	
 		inums = lnums[ 0 ] - 1
@@ -21,7 +26,8 @@ if __name__ == '__main__':
 		phi = PHI[ iphi ]
 		inums = lnums[ 1 ] - 1
 #		string[ inums ] = "\targv=\'-p\tn_thresh\t%s\'\n"%phi
-		string[ inums ] = "\targv=\'-p\tDf\t%s\'\n"%phi
+#		string[ inums ] = "\targv=\'-p\tDf\t%s\'\n"%phi
+		string[ inums ] = "\targv=\'-p\tDf\t%s\t-p\tquantile\t%s\'\n"%(phi[0],phi[1])
 
 		sfile=open('junk%s.py'%iphi,'w');sfile.writelines(string);sfile.close()
 		os.system( 'python junk%s.py'%iphi )
