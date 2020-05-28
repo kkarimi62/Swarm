@@ -3,7 +3,7 @@ def makeOAR( EXEC_DIR, node, core, tpartitionime, PYFIL, argv):
 	print >> someFile, '#!/bin/bash\n'
 	print >> someFile, 'EXEC_DIR=%s\n' %( EXEC_DIR )
 	print >> someFile, 'papermill --prepare-only %s/%s ./output.ipynb %s'%(EXEC_DIR,PYFIL,argv) #--- write notebook with a list of passed params
-	print >> someFile, 'jupyter nbconvert --execute %s/output.ipynb --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.allow_errors=True'%(EXEC_DIR)
+	print >> someFile, 'jupyter nbconvert --execute %s/output.ipynb --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.allow_errors=True;rm ./output.html'%(EXEC_DIR)
 	someFile.close()										  
 #
 if __name__ == '__main__':
