@@ -10,7 +10,7 @@ if __name__ == '__main__':
 	import os
 #
 	nruns	 = 16
-	jobname  = 'runOklahoma' #'runMogul' #'runFillmore2015' 
+	jobname  = 'runCaldera' #'runMogul' #'runFillmore2015' 
 	readPath = os.getcwd() # + '/CLUSTER' # --- source
 	EXEC_DIR = '.'     #--- path for executable file
 	durtn = '00:59:59'
@@ -18,16 +18,18 @@ if __name__ == '__main__':
 	partition = 'single' #'parallel' #'single'
 #	argv = "-p n_thresh 1.0"
 	argv = "-p Df 2.0 -p quantile 0.05"
-	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Oklahoma/TableS1.csv') 
+#	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Oklahoma/TableS1.csv') 
+	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/LongValleyCaldera/catalog1st.csv') 
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Mogul2008/catsearch.14436') 
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Fillmore2015/SRL-2016020_esupp_Table_S2.txt') 
 	PYFILdic = { 
 		0:'DifferentThresholds.ipynb',
 		1:'Mogul2008.ipynb',
 		2:'Fillmore2015.ipynb',
-		3:'swarmOklahoma.ipynb'
+		3:'swarmOklahoma.ipynb',
+		4:'swarmCaldera.ipynb'
 		}
-	keyno = 3
+	keyno = 4
 #---
 #---
 	PYFIL = PYFILdic[ keyno ] 
