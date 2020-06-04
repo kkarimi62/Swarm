@@ -10,7 +10,7 @@ if __name__ == '__main__':
 	import os
 #
 	nruns	 = 16
-	jobname  = 'runCaldera' #'runMogul' #'runFillmore2015' 
+	jobname  = 'runMogul' #'runMogul' #'runFillmore2015' 
 	readPath = os.getcwd() # + '/CLUSTER' # --- source
 	EXEC_DIR = '.'     #--- path for executable file
 	durtn = '00:59:59'
@@ -19,8 +19,8 @@ if __name__ == '__main__':
 #	argv = "-p Df 2.0 -p quantile 0.05"
 	argv = "-p quantile 0.05"
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Oklahoma/TableS1.csv') 
-	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/LongValleyCaldera/catalog1st.csv') 
-#	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Mogul2008/catsearch.14436') 
+#	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/LongValleyCaldera/catalog1st.csv') 
+	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Mogul2008/catsearch.14436') 
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Fillmore2015/SRL-2016020_esupp_Table_S2.txt') 
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/YuhaDesert/EMC.csv') 
 	PYFILdic = { 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
 		4:'swarmCaldera.ipynb',
 		5:'swarmYuhaDesert.ipynb'
 		}
-	keyno = 4
+	keyno = 1
 #---
 #---
 	PYFIL = PYFILdic[ keyno ] 
