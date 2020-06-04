@@ -46,4 +46,5 @@ Traceback (most recent call last):
   File "/home/kamran.karimi1/.local/lib/python2.7/site-packages/nbconvert/preprocessors/execute.py", line 510, in _check_alive
     raise DeadKernelError("Kernel died")
 nbconvert.preprocessors.execute.DeadKernelError: Kernel died
-slurmstepd: error: Detected 1 oom-kill event(s) in step 5958092.batch cgroup.
+ls: cannot access output.html: No such file or directory
+slurmstepd: error: Detected 1 oom-kill event(s) in step 5958202.batch cgroup.
