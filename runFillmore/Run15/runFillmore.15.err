@@ -3,4 +3,4 @@ Output Notebook: ./output.ipynb
 Input notebook does not contain a cell with tag 'parameters'
 [NbConvertApp] Converting notebook /home/kamran.karimi1/Project/git/Swarm/runFillmore/Run15/output.ipynb to html
 [NbConvertApp] Executing notebook with kernel: python2
-[NbConvertApp] Writing 4398990 bytes to /home/kamran.karimi1/Project/git/Swarm/runFillmore/Run15/output.html
+[NbConvertApp] Writing 3785816 bytes to /home/kamran.karimi1/Project/git/Swarm/runFillmore/Run15/output.html
