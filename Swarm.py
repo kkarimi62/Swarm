@@ -9,8 +9,8 @@ def makeOAR( EXEC_DIR, node, core, tpartitionime, PYFIL, argv):
 if __name__ == '__main__':
 	import os
 #
-	nruns	 = 16
-	jobname  = 'runYuha' #'runFillmore2015' 
+	nruns	 = 1
+	jobname  = 'runRidgeCrest' #'runFillmore2015' 
 	readPath = os.getcwd() # + '/CLUSTER' # --- source
 	EXEC_DIR = '.'     #--- path for executable file
 	durtn = '00:59:59'
@@ -22,7 +22,9 @@ if __name__ == '__main__':
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/LongValleyCaldera/catalog1st.csv') 
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Mogul2008/hypodd.reloc.mag') 
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Fillmore2015/SRL-2016020_esupp_Table_S2.txt') 
-	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/YuhaDesert/EMC.csv') 
+#	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/YuhaDesert/EMC.csv') 
+	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/RidgeCrest/Dataset S2.txt') 
+	argv += " -p SWARM_PATH2 \'%s\'"%(readPath+'/dataset/RidgeCrest/momentTensor.csv') 
 	PYFILdic = { 
 		0:'DifferentThresholds.ipynb',
 		1:'Mogul2008.ipynb',
@@ -30,9 +32,10 @@ if __name__ == '__main__':
 		3:'swarmOklahoma.ipynb',
 		4:'swarmCaldera.ipynb',
 		5:'swarmYuhaDesert.ipynb',
-		6:'swarmCaldera2nd.ipynb'
+		6:'swarmCaldera2nd.ipynb',
+		7:'RidgeCrest2019_recovered.ipynb'
 		}
-	keyno = 5
+	keyno = 7
 #---
 #---
 	PYFIL = PYFILdic[ keyno ] 
