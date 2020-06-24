@@ -13102,151 +13102,85 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#--- extract the catalog (new)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># #--- extract the catalog (new)</span>
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="c1">#import matplotlib; matplotlib.use(&#39;agg&#39;)</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rc</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">patches</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">matplotlib.ticker</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="kn">as</span> <span class="nn">mpl</span>
-<span class="c1">#from mpl_toolkits.mplot3d import Axes3D</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
-<span class="c1">#import path</span>
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="kn">as</span> <span class="nn">mdates</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">dates</span>
-<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="kn">as</span> <span class="nn">md</span>
-<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="kn">as</span> <span class="nn">cm</span>
-<span class="kn">from</span> <span class="nn">matplotlib.font_manager</span> <span class="kn">import</span> <span class="n">FontProperties</span>
-<span class="kn">import</span> <span class="nn">itertools</span>
-<span class="kn">import</span> <span class="nn">traceback</span>
-<span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">gaussian_filter</span>
-<span class="kn">import</span> <span class="nn">math</span>
+<span class="c1"># import pandas as pd</span>
+<span class="c1"># #import matplotlib; matplotlib.use(&#39;agg&#39;)</span>
+<span class="c1"># import sys</span>
+<span class="c1"># from matplotlib import rc</span>
+<span class="c1"># import matplotlib</span>
+<span class="c1"># import matplotlib.pylab as plt</span>
+<span class="c1"># import numpy as np</span>
+<span class="c1"># from matplotlib import patches</span>
+<span class="c1"># import warnings</span>
+<span class="c1"># import matplotlib.ticker</span>
+<span class="c1"># import matplotlib as mpl</span>
+<span class="c1"># #from mpl_toolkits.mplot3d import Axes3D</span>
+<span class="c1"># import datetime</span>
+<span class="c1"># #import path</span>
+<span class="c1"># from math import *</span>
+<span class="c1"># import matplotlib.dates as mdates</span>
+<span class="c1"># from matplotlib import dates</span>
+<span class="c1"># import matplotlib.dates as md</span>
+<span class="c1"># import matplotlib.cm as cm</span>
+<span class="c1"># from matplotlib.font_manager import FontProperties</span>
+<span class="c1"># import itertools</span>
+<span class="c1"># import traceback</span>
+<span class="c1"># from scipy.ndimage import gaussian_filter</span>
+<span class="c1"># import math</span>
 
-<span class="k">def</span> <span class="nf">DrawFrame</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">alpha_xl</span><span class="p">,</span><span class="n">alpha_xr</span><span class="p">),(</span><span class="n">alpha_yb</span><span class="p">,</span><span class="n">alpha_yt</span><span class="p">),</span><span class="n">linewidth</span><span class="p">,</span><span class="n">LOG_X</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">LOG_Y</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="p">[</span><span class="n">xlo</span><span class="p">,</span><span class="n">xhi</span><span class="p">,</span><span class="n">ylo</span><span class="p">,</span><span class="n">yhi</span><span class="p">]</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">LOG_X</span><span class="p">:</span>
-        <span class="p">[</span><span class="n">xlo</span><span class="p">,</span><span class="n">xhi</span><span class="p">,</span><span class="n">junk</span><span class="p">,</span><span class="n">junk</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">())</span>
-    <span class="k">if</span> <span class="n">LOG_Y</span><span class="p">:</span>
-        <span class="p">[</span><span class="n">junk</span><span class="p">,</span><span class="n">junk</span><span class="p">,</span><span class="n">ylo</span><span class="p">,</span><span class="n">yhi</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">())</span>
-    <span class="n">lx</span> <span class="o">=</span> <span class="n">xhi</span> <span class="o">-</span> <span class="n">xlo</span>
-    <span class="n">ly</span> <span class="o">=</span> <span class="n">yhi</span> <span class="o">-</span> <span class="n">ylo</span>
-    <span class="n">xy</span> <span class="o">=</span> <span class="p">[</span><span class="n">xlo</span> <span class="o">-</span> <span class="n">alpha_xl</span> <span class="o">*</span> <span class="n">lx</span><span class="p">,</span> <span class="n">ylo</span> <span class="o">-</span> <span class="n">alpha_yb</span> <span class="o">*</span> <span class="n">ly</span><span class="p">]</span>
-    <span class="n">height</span> <span class="o">=</span> <span class="n">ly</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">alpha_yb</span><span class="o">+</span><span class="n">alpha_yt</span><span class="p">)</span>
-    <span class="n">width</span> <span class="o">=</span> <span class="n">lx</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">alpha_xl</span><span class="o">+</span><span class="n">alpha_xr</span><span class="p">)</span>
-    <span class="n">xy_end</span><span class="o">=</span><span class="p">[</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">width</span><span class="p">,</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">height</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">LOG_X</span><span class="p">:</span>
-        <span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">xy_end</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">xy_end</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">LOG_Y</span><span class="p">:</span>
-        <span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">xy_end</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">xy_end</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="n">xy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">xy_end</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> 
-                                    <span class="n">height</span><span class="o">=</span><span class="n">xy_end</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">linewidth</span><span class="p">,</span>
-                                    <span class="n">clip_on</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">fill</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span> <span class="p">)</span> 
+<span class="c1"># def DrawFrame(ax, (alpha_xl,alpha_xr),(alpha_yb,alpha_yt),linewidth,LOG_X=None,LOG_Y=None):</span>
+<span class="c1">#     [xlo,xhi,ylo,yhi] = ax.axis()</span>
+<span class="c1">#     if LOG_X:</span>
+<span class="c1">#         [xlo,xhi,junk,junk] = np.log10(ax.axis())</span>
+<span class="c1">#     if LOG_Y:</span>
+<span class="c1">#         [junk,junk,ylo,yhi] = np.log10(ax.axis())</span>
+<span class="c1">#     lx = xhi - xlo</span>
+<span class="c1">#     ly = yhi - ylo</span>
+<span class="c1">#     xy = [xlo - alpha_xl * lx, ylo - alpha_yb * ly]</span>
+<span class="c1">#     height = ly*(1+alpha_yb+alpha_yt)</span>
+<span class="c1">#     width = lx*(1+alpha_xl+alpha_xr)</span>
+<span class="c1">#     xy_end=[xy[0]+width,xy[1]+height]</span>
+<span class="c1">#     if LOG_X:</span>
+<span class="c1">#         xy[0] = 10 ** xy[0]</span>
+<span class="c1">#         xy_end[0] = 10 ** xy_end[0]</span>
+<span class="c1">#     if LOG_Y:</span>
+<span class="c1">#         xy[1] = 10 ** xy[1]</span>
+<span class="c1">#         xy_end[1] = 10 ** xy_end[1]</span>
+<span class="c1">#     ax.add_patch( patches.Rectangle(xy=xy, width=xy_end[0]-xy[0], </span>
+<span class="c1">#                                     height=xy_end[1]-xy[1], linewidth=linewidth,</span>
+<span class="c1">#                                     clip_on=False,facecolor=None,edgecolor=&#39;black&#39;,fill=None) ) </span>
     
-<span class="c1">#--- add a new time attribute</span>
-<span class="k">def</span> <span class="nf">ConvertTime</span><span class="p">(</span> <span class="n">df_in</span> <span class="p">):</span>
-    <span class="n">df</span><span class="o">=</span><span class="n">df_in</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">swarm</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">]]))</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">df</span>
+<span class="c1"># #--- add a new time attribute</span>
+<span class="c1"># def ConvertTime( df_in ):</span>
+<span class="c1">#     df=df_in.copy()</span>
+<span class="c1">#     df.insert(0,&#39;date&#39;,pd.to_datetime(swarm[[&#39;year&#39;, &#39;month&#39;, &#39;day&#39;, &#39;hour&#39;, &#39;minute&#39;, &#39;second&#39;]]))</span>
+<span class="c1">#     df.drop([&#39;year&#39;, &#39;month&#39;, &#39;day&#39;, &#39;hour&#39;, &#39;minute&#39;, &#39;second&#39;],axis=1,inplace=True)</span>
+<span class="c1">#     return df</span>
 
-<span class="c1">#--- set path</span>
-<span class="n">SWARM_PATH</span> <span class="o">=</span> <span class="s1">&#39;./dataset/RidgeCrest/DataS1_noXYZ.txt&#39;</span> <span class="c1">#sys.argv[1]</span>
-<span class="n">DIR_OUTPT</span> <span class="o">=</span> <span class="s1">&#39;./dataset/RidgeCrest&#39;</span> <span class="c1">#sys.argv[2]</span>
-<span class="n">DIR_OUTPT_figs</span> <span class="o">=</span> <span class="s1">&#39;./dataset/figs&#39;</span> <span class="c1">#&#39;/Users/Home/Desktop/Tmp/txt&#39; #&#39;/Users/Home/Dropbox/Documents/papers/microSeismicityOklahoma/figs&#39;</span>
+<span class="c1"># #--- set path</span>
+<span class="c1"># SWARM_PATH = &#39;./dataset/RidgeCrest/DataS1_noXYZ.txt&#39; #sys.argv[1]</span>
+<span class="c1"># DIR_OUTPT = &#39;./dataset/RidgeCrest&#39; #sys.argv[2]</span>
+<span class="c1"># DIR_OUTPT_figs = &#39;./dataset/figs&#39; #&#39;/Users/Home/Desktop/Tmp/txt&#39; #&#39;/Users/Home/Dropbox/Documents/papers/microSeismicityOklahoma/figs&#39;</span>
 
-<span class="c1">#--- store</span>
-<span class="n">swarm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span> <span class="n">SWARM_PATH</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span> <span class="p">)</span> <span class="c1">#--- parse data</span>
+<span class="c1"># #--- store</span>
+<span class="c1"># swarm = pd.read_csv( SWARM_PATH, sep = &#39;,&#39; ) #--- parse data</span>
 
-<span class="n">swarm</span> <span class="o">=</span> <span class="n">ConvertTime</span><span class="p">(</span> <span class="n">swarm</span> <span class="p">)</span> <span class="c1">#--- add new column &#39;date&#39;</span>
+<span class="c1"># swarm = ConvertTime( swarm ) #--- add new column &#39;date&#39;</span>
 
-<span class="c1">#--- sort based on time</span>
-<span class="n">swarm</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># #--- sort based on time</span>
+<span class="c1"># swarm.sort_values(by=[&#39;date&#39;],inplace=True)</span>
 
-<span class="c1">#--- reindex</span>
-<span class="n">swarm</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># #--- reindex</span>
+<span class="c1"># swarm.reset_index(inplace=True,drop=True)</span>
 
-<span class="c1">#--- rename cols</span>
-<span class="n">swarm</span> <span class="o">=</span> <span class="n">swarm</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">:</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span><span class="s1">&#39;mag&#39;</span><span class="p">:</span><span class="s1">&#39;magnitude&#39;</span><span class="p">})</span>
+<span class="c1"># #--- rename cols</span>
+<span class="c1"># swarm = swarm.rename(index=str,columns={&#39;lat&#39;:&#39;latitude&#39;,&#39;lon&#39;:&#39;longitude&#39;,&#39;mag&#39;:&#39;magnitude&#39;})</span>
 
-<span class="n">swarm</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="c1"># swarm.head()</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-
-<span class="ansi-red-fg">IOError</span>Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-2-ea51d84c7546&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     61</span> 
-<span class="ansi-green-intense-fg ansi-bold">     62</span> <span class="ansi-red-fg">#--- store</span>
-<span class="ansi-green-fg">---&gt; 63</span><span class="ansi-red-fg"> </span>swarm <span class="ansi-blue-fg">=</span> pd<span class="ansi-blue-fg">.</span>read_csv<span class="ansi-blue-fg">(</span> SWARM_PATH<span class="ansi-blue-fg">,</span> sep <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#39;,&#39;</span> <span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#--- parse data</span>
-<span class="ansi-green-intense-fg ansi-bold">     64</span> 
-<span class="ansi-green-intense-fg ansi-bold">     65</span> swarm <span class="ansi-blue-fg">=</span> ConvertTime<span class="ansi-blue-fg">(</span> swarm <span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#--- add new column &#39;date&#39;</span>
-
-<span class="ansi-green-fg">/global/software/anaconda/anaconda-2.7-5.1.0/lib/python2.7/site-packages/pandas/io/parsers.pyc</span> in <span class="ansi-cyan-fg">parser_f</span><span class="ansi-blue-fg">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, escapechar, comment, encoding, dialect, tupleize_cols, error_bad_lines, warn_bad_lines, skipfooter, skip_footer, doublequote, delim_whitespace, as_recarray, compact_ints, use_unsigned, low_memory, buffer_lines, memory_map, float_precision)</span>
-<span class="ansi-green-intense-fg ansi-bold">    707</span>                     skip_blank_lines=skip_blank_lines)
-<span class="ansi-green-intense-fg ansi-bold">    708</span> 
-<span class="ansi-green-fg">--&gt; 709</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> _read<span class="ansi-blue-fg">(</span>filepath_or_buffer<span class="ansi-blue-fg">,</span> kwds<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    710</span> 
-<span class="ansi-green-intense-fg ansi-bold">    711</span>     parser_f<span class="ansi-blue-fg">.</span>__name__ <span class="ansi-blue-fg">=</span> name
-
-<span class="ansi-green-fg">/global/software/anaconda/anaconda-2.7-5.1.0/lib/python2.7/site-packages/pandas/io/parsers.pyc</span> in <span class="ansi-cyan-fg">_read</span><span class="ansi-blue-fg">(filepath_or_buffer, kwds)</span>
-<span class="ansi-green-intense-fg ansi-bold">    447</span> 
-<span class="ansi-green-intense-fg ansi-bold">    448</span>     <span class="ansi-red-fg"># Create the parser.</span>
-<span class="ansi-green-fg">--&gt; 449</span><span class="ansi-red-fg">     </span>parser <span class="ansi-blue-fg">=</span> TextFileReader<span class="ansi-blue-fg">(</span>filepath_or_buffer<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwds<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    450</span> 
-<span class="ansi-green-intense-fg ansi-bold">    451</span>     <span class="ansi-green-fg">if</span> chunksize <span class="ansi-green-fg">or</span> iterator<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/global/software/anaconda/anaconda-2.7-5.1.0/lib/python2.7/site-packages/pandas/io/parsers.pyc</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, f, engine, **kwds)</span>
-<span class="ansi-green-intense-fg ansi-bold">    816</span>             self<span class="ansi-blue-fg">.</span>options<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;has_index_names&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> kwds<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;has_index_names&#39;</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">    817</span> 
-<span class="ansi-green-fg">--&gt; 818</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>_make_engine<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>engine<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    819</span> 
-<span class="ansi-green-intense-fg ansi-bold">    820</span>     <span class="ansi-green-fg">def</span> close<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/global/software/anaconda/anaconda-2.7-5.1.0/lib/python2.7/site-packages/pandas/io/parsers.pyc</span> in <span class="ansi-cyan-fg">_make_engine</span><span class="ansi-blue-fg">(self, engine)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1047</span>     <span class="ansi-green-fg">def</span> _make_engine<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> engine<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;c&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1048</span>         <span class="ansi-green-fg">if</span> engine <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">&#39;c&#39;</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 1049</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>_engine <span class="ansi-blue-fg">=</span> CParserWrapper<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>f<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>self<span class="ansi-blue-fg">.</span>options<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1050</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1051</span>             <span class="ansi-green-fg">if</span> engine <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">&#39;python&#39;</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/global/software/anaconda/anaconda-2.7-5.1.0/lib/python2.7/site-packages/pandas/io/parsers.pyc</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, src, **kwds)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1693</span>         kwds<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;allow_leading_cols&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>index_col <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> False
-<span class="ansi-green-intense-fg ansi-bold">   1694</span> 
-<span class="ansi-green-fg">-&gt; 1695</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>_reader <span class="ansi-blue-fg">=</span> parsers<span class="ansi-blue-fg">.</span>TextReader<span class="ansi-blue-fg">(</span>src<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwds<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1696</span> 
-<span class="ansi-green-intense-fg ansi-bold">   1697</span>         <span class="ansi-red-fg"># XXX</span>
-
-<span class="ansi-green-fg">pandas/_libs/parsers.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.parsers.TextReader.__cinit__</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-green-fg">pandas/_libs/parsers.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.parsers.TextReader._setup_parser_source</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-red-fg">IOError</span>: File ./dataset/RidgeCrest/DataS1_noXYZ.txt does not exist</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -13265,6 +13199,33 @@ div#notebook {
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+
+<span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-3-2881a2fbde60&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>mpl<span class="ansi-blue-fg">.</span>rcParams<span class="ansi-blue-fg">.</span>update<span class="ansi-blue-fg">(</span>mpl<span class="ansi-blue-fg">.</span>rcParamsDefault<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> warnings<span class="ansi-blue-fg">.</span>filterwarnings<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;ignore&#39;</span><span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#--- get rid of warnings</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> 
+<span class="ansi-green-intense-fg ansi-bold">      4</span> rc<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;text&#39;</span><span class="ansi-blue-fg">,</span> usetex<span class="ansi-blue-fg">=</span>True<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> font <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;size&#39;</span>   <span class="ansi-blue-fg">:</span> <span class="ansi-cyan-fg">20</span><span class="ansi-blue-fg">}</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;mpl&#39; is not defined</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13331,7 +13292,7 @@ div#notebook {
 <div class="output_subarea output_text output_error">
 <pre>
 
-<span class="ansi-red-fg">IOError</span>Traceback (most recent call last)
+<span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-4-565269facd30&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
 <span class="ansi-green-intense-fg ansi-bold">     17</span> 
 <span class="ansi-green-intense-fg ansi-bold">     18</span> <span class="ansi-red-fg">#--- store</span>
@@ -13339,46 +13300,7 @@ div#notebook {
 <span class="ansi-green-intense-fg ansi-bold">     20</span> 
 <span class="ansi-green-intense-fg ansi-bold">     21</span> swarm <span class="ansi-blue-fg">=</span> ConvertTime<span class="ansi-blue-fg">(</span> swarm <span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#--- add new column &#39;date&#39;</span>
 
-<span class="ansi-green-fg">/global/software/anaconda/anaconda-2.7-5.1.0/lib/python2.7/site-packages/pandas/io/parsers.pyc</span> in <span class="ansi-cyan-fg">parser_f</span><span class="ansi-blue-fg">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, escapechar, comment, encoding, dialect, tupleize_cols, error_bad_lines, warn_bad_lines, skipfooter, skip_footer, doublequote, delim_whitespace, as_recarray, compact_ints, use_unsigned, low_memory, buffer_lines, memory_map, float_precision)</span>
-<span class="ansi-green-intense-fg ansi-bold">    707</span>                     skip_blank_lines=skip_blank_lines)
-<span class="ansi-green-intense-fg ansi-bold">    708</span> 
-<span class="ansi-green-fg">--&gt; 709</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> _read<span class="ansi-blue-fg">(</span>filepath_or_buffer<span class="ansi-blue-fg">,</span> kwds<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    710</span> 
-<span class="ansi-green-intense-fg ansi-bold">    711</span>     parser_f<span class="ansi-blue-fg">.</span>__name__ <span class="ansi-blue-fg">=</span> name
-
-<span class="ansi-green-fg">/global/software/anaconda/anaconda-2.7-5.1.0/lib/python2.7/site-packages/pandas/io/parsers.pyc</span> in <span class="ansi-cyan-fg">_read</span><span class="ansi-blue-fg">(filepath_or_buffer, kwds)</span>
-<span class="ansi-green-intense-fg ansi-bold">    447</span> 
-<span class="ansi-green-intense-fg ansi-bold">    448</span>     <span class="ansi-red-fg"># Create the parser.</span>
-<span class="ansi-green-fg">--&gt; 449</span><span class="ansi-red-fg">     </span>parser <span class="ansi-blue-fg">=</span> TextFileReader<span class="ansi-blue-fg">(</span>filepath_or_buffer<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwds<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    450</span> 
-<span class="ansi-green-intense-fg ansi-bold">    451</span>     <span class="ansi-green-fg">if</span> chunksize <span class="ansi-green-fg">or</span> iterator<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/global/software/anaconda/anaconda-2.7-5.1.0/lib/python2.7/site-packages/pandas/io/parsers.pyc</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, f, engine, **kwds)</span>
-<span class="ansi-green-intense-fg ansi-bold">    816</span>             self<span class="ansi-blue-fg">.</span>options<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;has_index_names&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> kwds<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;has_index_names&#39;</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">    817</span> 
-<span class="ansi-green-fg">--&gt; 818</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>_make_engine<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>engine<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    819</span> 
-<span class="ansi-green-intense-fg ansi-bold">    820</span>     <span class="ansi-green-fg">def</span> close<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/global/software/anaconda/anaconda-2.7-5.1.0/lib/python2.7/site-packages/pandas/io/parsers.pyc</span> in <span class="ansi-cyan-fg">_make_engine</span><span class="ansi-blue-fg">(self, engine)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1047</span>     <span class="ansi-green-fg">def</span> _make_engine<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> engine<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;c&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1048</span>         <span class="ansi-green-fg">if</span> engine <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">&#39;c&#39;</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 1049</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>_engine <span class="ansi-blue-fg">=</span> CParserWrapper<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>f<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>self<span class="ansi-blue-fg">.</span>options<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1050</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1051</span>             <span class="ansi-green-fg">if</span> engine <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">&#39;python&#39;</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/global/software/anaconda/anaconda-2.7-5.1.0/lib/python2.7/site-packages/pandas/io/parsers.pyc</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, src, **kwds)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1693</span>         kwds<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;allow_leading_cols&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>index_col <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> False
-<span class="ansi-green-intense-fg ansi-bold">   1694</span> 
-<span class="ansi-green-fg">-&gt; 1695</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>_reader <span class="ansi-blue-fg">=</span> parsers<span class="ansi-blue-fg">.</span>TextReader<span class="ansi-blue-fg">(</span>src<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwds<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1696</span> 
-<span class="ansi-green-intense-fg ansi-bold">   1697</span>         <span class="ansi-red-fg"># XXX</span>
-
-<span class="ansi-green-fg">pandas/_libs/parsers.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.parsers.TextReader.__cinit__</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-green-fg">pandas/_libs/parsers.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.parsers.TextReader._setup_parser_source</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-red-fg">IOError</span>: File ./dataset/RidgeCrest/DataS1_noXYZ.txt does not exist</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;pd&#39; is not defined</pre>
 </div>
 </div>
 
@@ -13482,88 +13404,22 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[6]:</div>
+    <div class="prompt"></div>
 
 
+<div class="output_subarea output_text output_error">
+<pre>
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-6-1aa677f08004&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">     16</span> 
+<span class="ansi-green-intense-fg ansi-bold">     17</span> <span class="ansi-red-fg">#--- store</span>
+<span class="ansi-green-fg">---&gt; 18</span><span class="ansi-red-fg"> </span>df_moment <span class="ansi-blue-fg">=</span> pd<span class="ansi-blue-fg">.</span>read_csv<span class="ansi-blue-fg">(</span> SWARM_PATH2<span class="ansi-blue-fg">,</span> sep <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#39;,&#39;</span> <span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#--- parse data</span>
+<span class="ansi-green-intense-fg ansi-bold">     19</span> 
+<span class="ansi-green-intense-fg ansi-bold">     20</span> df_moment <span class="ansi-blue-fg">=</span> ConvertTime<span class="ansi-blue-fg">(</span> df_moment <span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#--- add new column &#39;date&#39;</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Event ID</th>
-      <th>latitude</th>
-      <th>longitude</th>
-      <th>magnitude</th>
-      <th>Depth(km)</th>
-      <th>date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>38443095</td>
-      <td>35.708167</td>
-      <td>-117.503667</td>
-      <td>3.98</td>
-      <td>8</td>
-      <td>2019-07-04 17:02:55</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>38443183</td>
-      <td>35.705333</td>
-      <td>-117.503833</td>
-      <td>6.40</td>
-      <td>8</td>
-      <td>2019-07-04 17:33:49</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>38443719</td>
-      <td>35.716000</td>
-      <td>-117.560000</td>
-      <td>4.58</td>
-      <td>5</td>
-      <td>2019-07-04 18:56:06</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>38445087</td>
-      <td>35.746333</td>
-      <td>-117.563667</td>
-      <td>4.43</td>
-      <td>8</td>
-      <td>2019-07-04 22:12:08</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>38445703</td>
-      <td>35.601167</td>
-      <td>-117.610667</td>
-      <td>4.04</td>
-      <td>5</td>
-      <td>2019-07-04 23:34:02</td>
-    </tr>
-  </tbody>
-</table>
+<span class="ansi-red-fg">NameError</span>: name &#39;pd&#39; is not defined</pre>
 </div>
-</div>
-
 </div>
 
 </div>
@@ -13625,6 +13481,33 @@ div#notebook {
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+
+<span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-7-0e5fce800a1b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span> mn <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">      9</span> mp <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-fg">---&gt; 10</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">for</span> items <span class="ansi-green-fg">in</span> df_moment<span class="ansi-blue-fg">.</span>itertuples<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     11</span>     <span class="ansi-green-fg">if</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">:</span> <span class="ansi-red-fg">#try:</span>
+<span class="ansi-green-intense-fg ansi-bold">     12</span>         eventID <span class="ansi-blue-fg">=</span> items<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;df_moment&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -13652,6 +13535,33 @@ div#notebook {
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+
+<span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-8-f46c05438e46&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>df_moment<span class="ansi-blue-fg">.</span>insert<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">(</span>df_moment<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#39;mt&#39;</span><span class="ansi-blue-fg">,</span>mt<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> df_moment<span class="ansi-blue-fg">.</span>insert<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">(</span>df_moment<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#39;Azimuth(T)&#39;</span><span class="ansi-blue-fg">,</span>azimuth_t<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> df_moment<span class="ansi-blue-fg">.</span>insert<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">(</span>df_moment<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#39;Plunge(T)&#39;</span><span class="ansi-blue-fg">,</span>plunge_t<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> 
+<span class="ansi-green-intense-fg ansi-bold">      5</span> df_moment<span class="ansi-blue-fg">.</span>insert<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">(</span>df_moment<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#39;mn&#39;</span><span class="ansi-blue-fg">,</span>mn<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;df_moment&#39; is not defined</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13693,13 +13603,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-9-77bbe4992cd5&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> df_moment<span class="ansi-blue-fg">.</span>index<span class="ansi-blue-fg">=</span>df_moment<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Event ID&#39;</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>common_elm <span class="ansi-blue-fg">=</span> list<span class="ansi-blue-fg">(</span>set<span class="ansi-blue-fg">(</span>df_moment<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Event ID&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">&amp;</span> set<span class="ansi-blue-fg">(</span>swarm<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Event ID&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>df_moment<span class="ansi-blue-fg">.</span>index<span class="ansi-blue-fg">=</span>df_moment<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Event ID&#39;</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> common_elm <span class="ansi-blue-fg">=</span> list<span class="ansi-blue-fg">(</span>set<span class="ansi-blue-fg">(</span>df_moment<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Event ID&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">&amp;</span> set<span class="ansi-blue-fg">(</span>swarm<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Event ID&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">      3</span> df_moment <span class="ansi-blue-fg">=</span> df_moment<span class="ansi-blue-fg">.</span>loc<span class="ansi-blue-fg">[</span>common_elm<span class="ansi-blue-fg">]</span>
 <span class="ansi-green-intense-fg ansi-bold">      4</span> df_moment<span class="ansi-blue-fg">.</span>reset_index<span class="ansi-blue-fg">(</span>drop<span class="ansi-blue-fg">=</span>True<span class="ansi-blue-fg">,</span> inplace<span class="ansi-blue-fg">=</span>True<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">      5</span> df_moment<span class="ansi-blue-fg">.</span>head<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;swarm&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;df_moment&#39; is not defined</pre>
 </div>
 </div>
 
@@ -14632,13 +14542,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-18-1924cbe76cea&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">     34</span> 
 <span class="ansi-green-intense-fg ansi-bold">     35</span> <span class="ansi-red-fg">#--- t0&lt;t&lt;t1</span>
-<span class="ansi-green-intense-fg ansi-bold">     36</span> myTlohi = Tlohi( pd.to_datetime(&#39;2019-07-04&#39;), 
-<span class="ansi-green-fg">---&gt; 37</span><span class="ansi-red-fg">                  swarm[&#39;date&#39;].max())
-</span><span class="ansi-green-intense-fg ansi-bold">     38</span> 
-<span class="ansi-green-intense-fg ansi-bold">     39</span> <span class="ansi-red-fg">#--- set min/max time to avoid temporal incompletenesss issue</span>
+<span class="ansi-green-fg">---&gt; 36</span><span class="ansi-red-fg"> myTlohi = Tlohi( pd.to_datetime(&#39;2019-07-04&#39;), 
+</span><span class="ansi-green-intense-fg ansi-bold">     37</span>                  swarm[&#39;date&#39;].max())
+<span class="ansi-green-intense-fg ansi-bold">     38</span> 
 
-<span class="ansi-red-fg">NameError</span>: name &#39;swarm&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;pd&#39; is not defined</pre>
 </div>
 </div>
 
@@ -15089,13 +14999,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-21-f7e3e1892537&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      8</span> ax<span class="ansi-blue-fg">.</span>set_xscale<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;log&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      9</span> ax<span class="ansi-blue-fg">.</span>set_yscale<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;log&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">---&gt; 10</span><span class="ansi-red-fg"> ax.errorbar( r_bins2d, hist_acc_2d, 
-</span><span class="ansi-green-intense-fg ansi-bold">     11</span>             yerr <span class="ansi-blue-fg">=</span> hist_acc_2d<span class="ansi-blue-fg">/</span>hist2d<span class="ansi-blue-fg">**</span><span class="ansi-cyan-fg">.5</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">     12</span>             color=&#39;black&#39;,marker=&#39;o&#39;)
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg">#--- plot</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> d_f <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">1.7</span>
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span>fig <span class="ansi-blue-fg">=</span> plt<span class="ansi-blue-fg">.</span>figure<span class="ansi-blue-fg">(</span>figsize<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> ax <span class="ansi-blue-fg">=</span> fig<span class="ansi-blue-fg">.</span>add_subplot<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">111</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> ax<span class="ansi-blue-fg">.</span>axis<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1e-4</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1e3</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1e-7</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1e0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;r_bins2d&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;plt&#39; is not defined</pre>
 </div>
 </div>
 
@@ -15519,13 +15429,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-25-3f28c1a3a830&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">    106</span> <span class="ansi-red-fg">#--------------------</span>
 <span class="ansi-green-intense-fg ansi-bold">    107</span> <span class="ansi-red-fg">#--- t0&lt;t&lt;t1</span>
-<span class="ansi-green-intense-fg ansi-bold">    108</span> myTlohi = Tlohi( pd.to_datetime(&#39;2019-07-04&#39;), 
-<span class="ansi-green-fg">--&gt; 109</span><span class="ansi-red-fg">                  swarm[&#39;date&#39;].max())
-</span><span class="ansi-green-intense-fg ansi-bold">    110</span> 
-<span class="ansi-green-intense-fg ansi-bold">    111</span> swarm_lohi = DataFrameSubSet( swarm, #--- complete catalog
+<span class="ansi-green-fg">--&gt; 108</span><span class="ansi-red-fg"> myTlohi = Tlohi( pd.to_datetime(&#39;2019-07-04&#39;), 
+</span><span class="ansi-green-intense-fg ansi-bold">    109</span>                  swarm[&#39;date&#39;].max())
+<span class="ansi-green-intense-fg ansi-bold">    110</span> 
 
-<span class="ansi-red-fg">NameError</span>: name &#39;swarm&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;pd&#39; is not defined</pre>
 </div>
 </div>
 
@@ -16002,13 +15912,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-30-90fb2e2eb189&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">    123</span> <span class="ansi-red-fg">#----- subset (the same as trig. analysis)</span>
-<span class="ansi-green-intense-fg ansi-bold">    124</span> <span class="ansi-red-fg">#--------------------</span>
-<span class="ansi-green-fg">--&gt; 125</span><span class="ansi-red-fg"> swarm_lohi = DataFrameSubSet( swarm, #--- complete catalog
-</span><span class="ansi-green-intense-fg ansi-bold">    126</span>                              <span class="ansi-blue-fg">&#39;magnitude&#39;</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    127</span>                              ( mc, sys.maxint ) ) 
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>mpl<span class="ansi-blue-fg">.</span>rcParams<span class="ansi-blue-fg">.</span>update<span class="ansi-blue-fg">(</span>mpl<span class="ansi-blue-fg">.</span>rcParamsDefault<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> warnings<span class="ansi-blue-fg">.</span>filterwarnings<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;ignore&#39;</span><span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#--- get rid of warnings</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> 
+<span class="ansi-green-intense-fg ansi-bold">      4</span> rc<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;text&#39;</span><span class="ansi-blue-fg">,</span> usetex<span class="ansi-blue-fg">=</span>True<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> font <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;size&#39;</span>   <span class="ansi-blue-fg">:</span> <span class="ansi-cyan-fg">26</span><span class="ansi-blue-fg">}</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;swarm&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;mpl&#39; is not defined</pre>
 </div>
 </div>
 
@@ -16837,13 +16747,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-39-cd0861f2f3b7&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">     72</span> 
+<span class="ansi-green-intense-fg ansi-bold">     73</span> 
+<span class="ansi-green-fg">---&gt; 74</span><span class="ansi-red-fg"> </span>colors <span class="ansi-blue-fg">=</span> itertools<span class="ansi-blue-fg">.</span>cycle<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;r&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;b&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;g&#34;</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#34;b&#34;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     75</span> <span class="ansi-red-fg">#cs = 3 * (24*3600) #--- km per day</span>
 <span class="ansi-green-intense-fg ansi-bold">     76</span> 
-<span class="ansi-green-intense-fg ansi-bold">     77</span> <span class="ansi-red-fg">#--- sort</span>
-<span class="ansi-green-fg">---&gt; 78</span><span class="ansi-red-fg"> </span>new_list <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">[</span>len<span class="ansi-blue-fg">(</span>d_trig<span class="ansi-blue-fg">[</span>triggerID<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>triggerID<span class="ansi-blue-fg">]</span> <span class="ansi-green-fg">for</span> triggerID <span class="ansi-green-fg">in</span> d_trig<span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">     79</span> new_list<span class="ansi-blue-fg">.</span>sort<span class="ansi-blue-fg">(</span>reverse<span class="ansi-blue-fg">=</span>True<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     80</span> TRIG_ID <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span>i<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span> <span class="ansi-green-fg">for</span> i <span class="ansi-green-fg">in</span> new_list<span class="ansi-blue-fg">]</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;d_trig&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;itertools&#39; is not defined</pre>
 </div>
 </div>
 
@@ -17318,13 +17228,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-42-948be515bf79&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     66</span> <span class="ansi-red-fg">#----- subset (the same as trig. analysis)</span>
-<span class="ansi-green-intense-fg ansi-bold">     67</span> <span class="ansi-red-fg">#--------------------</span>
-<span class="ansi-green-fg">---&gt; 68</span><span class="ansi-red-fg"> swarm_lohi = DataFrameSubSet( swarm, #--- complete catalog
-</span><span class="ansi-green-intense-fg ansi-bold">     69</span>                              <span class="ansi-blue-fg">&#39;magnitude&#39;</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">     70</span>                              ( mc, sys.maxint ) ) 
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg">#--- productivity relation</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> 
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span>mpl<span class="ansi-blue-fg">.</span>rcParams<span class="ansi-blue-fg">.</span>update<span class="ansi-blue-fg">(</span>mpl<span class="ansi-blue-fg">.</span>rcParamsDefault<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> warnings<span class="ansi-blue-fg">.</span>filterwarnings<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;ignore&#39;</span><span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#--- get rid of warnings</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> 
 
-<span class="ansi-red-fg">NameError</span>: name &#39;swarm&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;mpl&#39; is not defined</pre>
 </div>
 </div>
 
@@ -18040,13 +17950,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-48-d8df83cc2b76&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     12</span> plt<span class="ansi-blue-fg">.</span>xlim<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1e-3</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1e2</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     13</span> plt<span class="ansi-blue-fg">.</span>ylim<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1e-4</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1e1</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">---&gt; 14</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">for</span> key <span class="ansi-green-fg">in</span> X<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     15</span> <span class="ansi-red-fg">#    if key &lt; 3:</span>
-<span class="ansi-green-intense-fg ansi-bold">     16</span> <span class="ansi-red-fg">#        continue</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> 
+<span class="ansi-green-intense-fg ansi-bold">      3</span> 
+<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>plt<span class="ansi-blue-fg">.</span>figure<span class="ansi-blue-fg">(</span>figsize<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">15</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">5</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> 
+<span class="ansi-green-intense-fg ansi-bold">      6</span> <span class="ansi-red-fg">#--- plot rho</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;X&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;plt&#39; is not defined</pre>
 </div>
 </div>
 
@@ -18167,13 +18077,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-49-a9f5850660ef&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">     14</span>     <span class="ansi-green-fg">return</span> <span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">2.54</span><span class="ansi-blue-fg">,</span>y<span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">2.54</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">     15</span> 
-<span class="ansi-green-intense-fg ansi-bold">     16</span> fig<span class="ansi-blue-fg">,</span> ax <span class="ansi-blue-fg">=</span> plt<span class="ansi-blue-fg">.</span>subplots<span class="ansi-blue-fg">(</span>figsize<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">---&gt; 17</span><span class="ansi-red-fg"> </span>sigma<span class="ansi-blue-fg">=</span>alpha
+<span class="ansi-green-fg">---&gt; 16</span><span class="ansi-red-fg"> </span>fig<span class="ansi-blue-fg">,</span> ax <span class="ansi-blue-fg">=</span> plt<span class="ansi-blue-fg">.</span>subplots<span class="ansi-blue-fg">(</span>figsize<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     17</span> sigma<span class="ansi-blue-fg">=</span>alpha
 <span class="ansi-green-intense-fg ansi-bold">     18</span> ax<span class="ansi-blue-fg">.</span>axis<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">10</span><span class="ansi-blue-fg">/</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">100</span><span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">1e-3</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">10</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1e-3</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">100</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     19</span> ax<span class="ansi-blue-fg">.</span>loglog<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;alpha&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;plt&#39; is not defined</pre>
 </div>
 </div>
 
@@ -18287,13 +18197,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-50-4276afcfad33&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     50</span> <span class="ansi-red-fg">#markers=[&#39;o&#39;,&#39;s&#39;,&#39;D&#39;,&#39;^&#39;,&#39;&lt;&#39;,&#39;v&#39;]</span>
-<span class="ansi-green-intense-fg ansi-bold">     51</span> <span class="ansi-red-fg">#assert len(colors) &gt;= len(X)</span>
-<span class="ansi-green-fg">---&gt; 52</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">for</span> key<span class="ansi-blue-fg">,</span>col<span class="ansi-blue-fg">,</span>mk<span class="ansi-blue-fg">,</span>fl <span class="ansi-green-fg">in</span> zip<span class="ansi-blue-fg">(</span>X<span class="ansi-blue-fg">,</span>colors<span class="ansi-blue-fg">,</span>markers<span class="ansi-blue-fg">,</span>fillstyles<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     53</span>     xlabel <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">r&#39;$%2.1f-%2.1f$&#39;</span><span class="ansi-blue-fg">%</span><span class="ansi-blue-fg">(</span>m_range<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span>m_range<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     54</span>     <span class="ansi-green-fg">if</span> key <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">5</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      7</span>     <span class="ansi-green-fg">return</span> <span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">2.54</span><span class="ansi-blue-fg">,</span>y<span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">2.54</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span> 
+<span class="ansi-green-fg">----&gt; 9</span><span class="ansi-red-fg"> </span>fig<span class="ansi-blue-fg">,</span> ax <span class="ansi-blue-fg">=</span> plt<span class="ansi-blue-fg">.</span>subplots<span class="ansi-blue-fg">(</span>figsize<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     10</span> <span class="ansi-red-fg">#---</span>
+<span class="ansi-green-intense-fg ansi-bold">     11</span> ax<span class="ansi-blue-fg">.</span>spines<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;right&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>set_visible<span class="ansi-blue-fg">(</span>False<span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#--- half open</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;X&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;plt&#39; is not defined</pre>
 </div>
 </div>
 
@@ -18384,13 +18294,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-51-9f31cc10a9cd&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     18</span> <span class="ansi-red-fg">#assert len(colors) &gt;= len(X)</span>
-<span class="ansi-green-intense-fg ansi-bold">     19</span> p0 <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1.0</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">0.1</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">.01</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">---&gt; 20</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">for</span> key<span class="ansi-blue-fg">,</span> col <span class="ansi-green-fg">in</span> zip<span class="ansi-blue-fg">(</span>X<span class="ansi-blue-fg">,</span>colors<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     21</span>     <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     22</span> <span class="ansi-red-fg">#        print np.mean(X[key])</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     <span class="ansi-green-fg">return</span> pref <span class="ansi-blue-fg">*</span> np<span class="ansi-blue-fg">.</span>exp<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">-</span><span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">-</span>xmean<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">/</span>sigma<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">**</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> 
+<span class="ansi-green-fg">----&gt; 6</span><span class="ansi-red-fg"> </span>fig<span class="ansi-blue-fg">=</span>plt<span class="ansi-blue-fg">.</span>figure<span class="ansi-blue-fg">(</span>figsize<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">8</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      7</span> ax<span class="ansi-blue-fg">=</span>fig<span class="ansi-blue-fg">.</span>add_subplot<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">121</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span> ax<span class="ansi-blue-fg">.</span>axis<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">2e-3</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">2e-3</span><span class="ansi-blue-fg">*</span><span class="ansi-cyan-fg">1e1</span><span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">1e-3</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1e-3</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1e1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;X&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;plt&#39; is not defined</pre>
 </div>
 </div>
 
@@ -18898,13 +18808,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-55-6a47ca4acacd&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     13</span> <span class="ansi-red-fg">#plt.xlim(1e-6,1e1)</span>
-<span class="ansi-green-intense-fg ansi-bold">     14</span> <span class="ansi-red-fg">#plt.ylim(1e0,1e7)</span>
-<span class="ansi-green-fg">---&gt; 15</span><span class="ansi-red-fg"> </span>KEYS <span class="ansi-blue-fg">=</span> X<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     16</span> KEYS<span class="ansi-blue-fg">.</span>sort<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     17</span> <span class="ansi-green-fg">for</span> key<span class="ansi-blue-fg">,</span> index <span class="ansi-green-fg">in</span> zip<span class="ansi-blue-fg">(</span>KEYS<span class="ansi-blue-fg">,</span>xrange<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">100</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> 
+<span class="ansi-green-intense-fg ansi-bold">      3</span> 
+<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>plt<span class="ansi-blue-fg">.</span>figure<span class="ansi-blue-fg">(</span>figsize<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">16.5</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">5</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> 
+<span class="ansi-green-intense-fg ansi-bold">      6</span> 
 
-<span class="ansi-red-fg">NameError</span>: name &#39;X&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;plt&#39; is not defined</pre>
 </div>
 </div>
 
@@ -18999,13 +18909,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-56-427051a4518f&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     37</span> <span class="ansi-red-fg">#markers=[&#39;o&#39;,&#39;s&#39;,&#39;D&#39;,&#39;^&#39;,&#39;&lt;&#39;,&#39;v&#39;]</span>
-<span class="ansi-green-intense-fg ansi-bold">     38</span> <span class="ansi-red-fg">#assert len(colors) &gt;= len(X)</span>
-<span class="ansi-green-fg">---&gt; 39</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">for</span> key<span class="ansi-blue-fg">,</span>col<span class="ansi-blue-fg">,</span>mk<span class="ansi-blue-fg">,</span>fl <span class="ansi-green-fg">in</span> zip<span class="ansi-blue-fg">(</span>X<span class="ansi-blue-fg">,</span>colors<span class="ansi-blue-fg">,</span>markers<span class="ansi-blue-fg">,</span>fillstyles<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     40</span> <span class="ansi-red-fg">#    xdata += list(X[key]/10**(alpha*np.mean(m_range[key])))</span>
-<span class="ansi-green-intense-fg ansi-bold">     41</span> <span class="ansi-red-fg">#    ydata += list(rho_dict[key]*10**(alpha*np.mean(m_range[key])))</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-red-fg">#--- rescaled</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> 
+<span class="ansi-green-fg">----&gt; 6</span><span class="ansi-red-fg"> </span>fig<span class="ansi-blue-fg">,</span> ax <span class="ansi-blue-fg">=</span> plt<span class="ansi-blue-fg">.</span>subplots<span class="ansi-blue-fg">(</span>figsize<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      7</span> ax<span class="ansi-blue-fg">.</span>axis<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">/</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1000</span><span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">3e-4</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">3e-4</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1000</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span> ax<span class="ansi-blue-fg">.</span>loglog<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;X&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;plt&#39; is not defined</pre>
 </div>
 </div>
 
@@ -19115,13 +19025,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-57-1e038868bfb5&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     45</span> <span class="ansi-red-fg">#fillstyles=[&#39;white&#39;,None,&#39;white&#39;,None,&#39;white&#39;,None]</span>
-<span class="ansi-green-intense-fg ansi-bold">     46</span> <span class="ansi-red-fg">#markers=[&#39;o&#39;,&#39;s&#39;,&#39;D&#39;,&#39;^&#39;,&#39;&lt;&#39;]</span>
-<span class="ansi-green-fg">---&gt; 47</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">for</span> key<span class="ansi-blue-fg">,</span>col<span class="ansi-blue-fg">,</span>mk<span class="ansi-blue-fg">,</span>fl <span class="ansi-green-fg">in</span> zip<span class="ansi-blue-fg">(</span>X<span class="ansi-blue-fg">,</span>colors<span class="ansi-blue-fg">,</span>markers<span class="ansi-blue-fg">,</span>fillstyles<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     48</span>     xlabel <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">r&#39;$%2.1f-%2.1f$&#39;</span><span class="ansi-blue-fg">%</span><span class="ansi-blue-fg">(</span>m_range<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span>m_range<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     49</span>     <span class="ansi-green-fg">if</span> key <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">5</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>     <span class="ansi-green-fg">return</span> <span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">2.54</span><span class="ansi-blue-fg">,</span>y<span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">2.54</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span> 
+<span class="ansi-green-fg">----&gt; 7</span><span class="ansi-red-fg"> </span>fig<span class="ansi-blue-fg">,</span> ax <span class="ansi-blue-fg">=</span> plt<span class="ansi-blue-fg">.</span>subplots<span class="ansi-blue-fg">(</span>figsize<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span> <span class="ansi-red-fg">#---</span>
+<span class="ansi-green-intense-fg ansi-bold">      9</span> ax<span class="ansi-blue-fg">.</span>spines<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;right&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>set_visible<span class="ansi-blue-fg">(</span>False<span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#--- half open</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;X&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;plt&#39; is not defined</pre>
 </div>
 </div>
 
@@ -19238,13 +19148,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-58-d7ae54a0317a&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     52</span> <span class="ansi-red-fg">#fillstyles=[&#39;white&#39;,None,&#39;white&#39;,None,&#39;white&#39;,None]</span>
-<span class="ansi-green-intense-fg ansi-bold">     53</span> <span class="ansi-red-fg">#markers=[&#39;o&#39;,&#39;s&#39;,&#39;D&#39;,&#39;^&#39;,&#39;&lt;&#39;]</span>
-<span class="ansi-green-fg">---&gt; 54</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">for</span> key<span class="ansi-blue-fg">,</span>col<span class="ansi-blue-fg">,</span>mk<span class="ansi-blue-fg">,</span>fl <span class="ansi-green-fg">in</span> zip<span class="ansi-blue-fg">(</span>X<span class="ansi-blue-fg">,</span>colors<span class="ansi-blue-fg">,</span>markers<span class="ansi-blue-fg">,</span>fillstyles<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     55</span>     xlabel <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">r&#39;$%2.1f-%2.1f$&#39;</span><span class="ansi-blue-fg">%</span><span class="ansi-blue-fg">(</span>m_range<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span>m_range<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     56</span>     <span class="ansi-green-fg">if</span> key <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">5</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>     <span class="ansi-green-fg">return</span> <span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">2.54</span><span class="ansi-blue-fg">,</span>y<span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">2.54</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span> 
+<span class="ansi-green-fg">----&gt; 7</span><span class="ansi-red-fg"> </span>fig<span class="ansi-blue-fg">,</span> ax <span class="ansi-blue-fg">=</span> plt<span class="ansi-blue-fg">.</span>subplots<span class="ansi-blue-fg">(</span>figsize<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span> <span class="ansi-red-fg">#---</span>
+<span class="ansi-green-intense-fg ansi-bold">      9</span> ax<span class="ansi-blue-fg">.</span>spines<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;right&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>set_visible<span class="ansi-blue-fg">(</span>False<span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#--- half open</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;X&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;plt&#39; is not defined</pre>
 </div>
 </div>
 
@@ -19728,13 +19638,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-63-c237b1d9ef5c&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     32</span> M<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">     33</span> root<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-fg">---&gt; 34</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">for</span> item <span class="ansi-green-fg">in</span> sl<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     35</span>     sid <span class="ansi-blue-fg">=</span> item<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">     36</span>     root_id <span class="ansi-blue-fg">=</span> item<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> 
+<span class="ansi-green-intense-fg ansi-bold">      3</span> mpl<span class="ansi-blue-fg">.</span>rcParams<span class="ansi-blue-fg">.</span>update<span class="ansi-blue-fg">(</span>mpl<span class="ansi-blue-fg">.</span>rcParamsDefault<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>warnings<span class="ansi-blue-fg">.</span>filterwarnings<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;ignore&#39;</span><span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#--- get rid of warnings</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> 
+<span class="ansi-green-intense-fg ansi-bold">      6</span> rc<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;text&#39;</span><span class="ansi-blue-fg">,</span> usetex<span class="ansi-blue-fg">=</span>True<span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;sl&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;warnings&#39; is not defined</pre>
 </div>
 </div>
 
@@ -20870,13 +20780,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-69-6eb46335e5fd&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      8</span> ax<span class="ansi-blue-fg">.</span>set_yscale<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;log&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      9</span> 
-<span class="ansi-green-fg">---&gt; 10</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">for</span> keys <span class="ansi-green-fg">in</span> stree<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     11</span>     tree_obj <span class="ansi-blue-fg">=</span> stree<span class="ansi-blue-fg">[</span> keys <span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">     12</span>     <span class="ansi-green-fg">if</span> tree_obj<span class="ansi-blue-fg">.</span>data <span class="ansi-blue-fg">!=</span> ROOT<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> ROOT <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">1505</span> <span class="ansi-red-fg">#1</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> 
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span>fig <span class="ansi-blue-fg">=</span> plt<span class="ansi-blue-fg">.</span>figure<span class="ansi-blue-fg">(</span>figsize<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> ax <span class="ansi-blue-fg">=</span> fig<span class="ansi-blue-fg">.</span>add_subplot<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">111</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> ax<span class="ansi-blue-fg">.</span>set_xlim<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">100</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1e6</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;stree&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;plt&#39; is not defined</pre>
 </div>
 </div>
 
@@ -21037,11 +20947,13 @@ div#notebook {
 
 <span class="ansi-red-fg">NameError</span>Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-72-6e681946ac0e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>fig<span class="ansi-blue-fg">=</span>plt<span class="ansi-blue-fg">.</span>figure<span class="ansi-blue-fg">(</span>figsize<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> ax<span class="ansi-blue-fg">=</span>fig<span class="ansi-blue-fg">.</span>add_subplot<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">111</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> ax<span class="ansi-blue-fg">.</span>set_xlim<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1e-1</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1e2</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> ax<span class="ansi-blue-fg">.</span>set_ylim<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1e-1</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1e2</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">      5</span> ax<span class="ansi-blue-fg">.</span>set_xscale<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;log&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      6</span> ax<span class="ansi-blue-fg">.</span>set_yscale<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;log&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">----&gt; 7</span><span class="ansi-red-fg"> </span>ax<span class="ansi-blue-fg">.</span>scatter<span class="ansi-blue-fg">(</span>dt_sec<span class="ansi-blue-fg">,</span>dr<span class="ansi-blue-fg">,</span>s<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">3.0</span><span class="ansi-blue-fg">**</span><span class="ansi-blue-fg">(</span>swarm_loh<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;magnitude&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>alpha<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0.2</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;dt_sec&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;plt&#39; is not defined</pre>
 </div>
 </div>
 
