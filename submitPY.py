@@ -6,7 +6,7 @@ if __name__ == '__main__':
 	lnums = [ 13, 20 ]
 	string=open('Swarm.py').readlines() #--- python script
 	#---
-	nphi = 4
+	nphi = 5
 #	PHI = np.logspace(-5.0,2.0,nphi,endpoint=True)
 #	PHI = np.linspace(2.3,2.9,nphi,endpoint=True)
 	PHI = np.linspace(0.05,0.45,nphi,endpoint=True)
