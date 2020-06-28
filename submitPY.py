@@ -9,12 +9,12 @@ if __name__ == '__main__':
 	nphi = 4
 #	PHI = np.logspace(-5.0,2.0,nphi,endpoint=True)
 #	PHI = np.linspace(2.3,2.9,nphi,endpoint=True)
-	PHI = np.linspace(0.05,0.11,nphi,endpoint=True)
+	PHI = np.linspace(0.05,0.45,nphi,endpoint=True)
 	#---
 #	nn = 4
 #	NTHRESH = np.linspace(0.05,0.11,nn,endpoint=True)
 	#---
-	jobname = 'runFillmore'
+	jobname = 'runRidgeCrest'
 
 #	PHI = [[PHI[iphi],NTHRESH[inn]] for iphi in xrange( nphi ) for inn in xrange(nn)]
 #	nphi = len(PHI)

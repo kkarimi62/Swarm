@@ -23,8 +23,8 @@ if __name__ == '__main__':
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Mogul2008/hypodd.reloc.mag') 
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Fillmore2015/SRL-2016020_esupp_Table_S2.txt') 
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/YuhaDesert/EMC.csv') 
-	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/RidgeCrest/Dataset S2.txt') 
-	argv += " -p SWARM_PATH2 \'%s\'"%(readPath+'/dataset/RidgeCrest/momentTensor.csv') 
+	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/RidgeCrest/DataS1_noXYZ.txt') 
+#	argv += " -p SWARM_PATH2 \'%s\'"%(readPath+'/dataset/RidgeCrest/momentTensor.csv') 
 	PYFILdic = { 
 		0:'DifferentThresholds.ipynb',
 		1:'Mogul2008.ipynb',

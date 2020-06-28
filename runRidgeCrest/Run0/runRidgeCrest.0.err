@@ -3,4 +3,4 @@ Output Notebook: ./output.ipynb
 Input notebook does not contain a cell with tag 'parameters'
 [NbConvertApp] Converting notebook /newhome/kamran.karimi1/Project/git/Swarm/runRidgeCrest/Run0/output.ipynb to html
 [NbConvertApp] Executing notebook with kernel: python2
-[NbConvertApp] Writing 1664149 bytes to /newhome/kamran.karimi1/Project/git/Swarm/runRidgeCrest/Run0/output.html
+slurmstepd: error: *** JOB 6152805 ON fm1 CANCELLED AT 2020-06-27T22:52:35 ***
