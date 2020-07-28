@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EXEC_DIR=/newhome/kamran.karimi1/Project/git/Swarm/runRidgeCrest1/Run0
+EXEC_DIR=/home/kamran.karimi1/Project/git/Swarm/runRidgeCrest1/Run0
 
-papermill --prepare-only /newhome/kamran.karimi1/Project/git/Swarm/runRidgeCrest1/Run0/RidgeCrest2019_recovered.ipynb ./output.ipynb -p	quantile	0.15000000000000002 -p SWARM_PATH '/newhome/kamran.karimi1/Project/git/Swarm/dataset/RidgeCrest/DataS1_noXYZ.txt'
-jupyter nbconvert --execute /newhome/kamran.karimi1/Project/git/Swarm/runRidgeCrest1/Run0/output.ipynb --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.allow_errors=True;ls output.html
+papermill --prepare-only /home/kamran.karimi1/Project/git/Swarm/runRidgeCrest1/Run0/RidgeCrest2019_recovered.ipynb ./output.ipynb -p	n_thresh	0.0031622776601683794 -p SWARM_PATH3 '/home/kamran.karimi1/Project/git/Swarm/dataset/RidgeCrest/catalog_fmsearch.csv' -p SWARM_PATH4 '/home/kamran.karimi1/Project/git/Swarm/dataset/RidgeCrest/momentTensors.pkl'
+jupyter nbconvert --execute /home/kamran.karimi1/Project/git/Swarm/runRidgeCrest1/Run0/output.ipynb --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.allow_errors=True;ls output.html

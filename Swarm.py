@@ -14,16 +14,19 @@ if __name__ == '__main__':
 	readPath = os.getcwd() # + '/CLUSTER' # --- source
 	EXEC_DIR = '.'     #--- path for executable file
 	durtn = '00:59:59'
-	mem = '64gb' #'4gb' #'64gb'
-	partition = 'bigmem' #'single' #'parallel' #'single'
+	mem = '8gb' #'4gb' #'64gb'
+	partition = 'single' # 'bigmem' #'single' #'parallel' #'single'
 #	argv = "-p Df 2.0 -p quantile 0.05"
-	argv = "-p quantile 0.05"
+#	argv = "-p quantile 0.05"
+	argv = "-p n_thresh 0.001"
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Oklahoma/TableS1.csv') 
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/LongValleyCaldera/catalog1st.csv') 
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Mogul2008/hypodd.reloc.mag') 
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/Fillmore2015/SRL-2016020_esupp_Table_S2.txt') 
 #	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/YuhaDesert/EMC.csv') 
-	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/RidgeCrest/DataS1_noXYZ.txt') 
+#	argv += " -p SWARM_PATH \'%s\'"%(readPath+'/dataset/RidgeCrest/DataS1_noXYZ.txt') 
+	argv += " -p SWARM_PATH3 \'%s\'"%(readPath+'/dataset/RidgeCrest/catalog_fmsearch.csv') 
+	argv += " -p SWARM_PATH4 \'%s\'"%(readPath+'/dataset/RidgeCrest/momentTensors.pkl') 
 #	argv += " -p SWARM_PATH2 \'%s\'"%(readPath+'/dataset/RidgeCrest/momentTensor.csv') 
 	PYFILdic = { 
 		0:'DifferentThresholds.ipynb',
