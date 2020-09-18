@@ -10,7 +10,7 @@ if __name__ == '__main__':
 	import os
 #
 	nruns	 = 1
-	jobname  = 'yuhaDesertFit' #'runRidgeCrest' #'runFillmore2015' 
+	jobname  = 'yuhaDesertFit2nd' #'runRidgeCrest' #'runFillmore2015' 
 	readPath = os.getcwd() # + '/CLUSTER' # --- source
 	EXEC_DIR = '.'     #--- path for executable file
 	durtn = '00:59:59'
