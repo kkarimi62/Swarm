@@ -10,7 +10,7 @@ if __name__ == '__main__':
 	import os
 #
 	nruns	 = 1
-	jobname  = 'yuhaDesertFit2nd' #'runRidgeCrest' #'runFillmore2015' 
+	jobname  = 'swarmYuhaDesertFirstPeriod' #'yuhaDesertFit2nd' #'runRidgeCrest' #'runFillmore2015' 
 	readPath = os.getcwd() # + '/CLUSTER' # --- source
 	EXEC_DIR = '.'     #--- path for executable file
 	durtn = '00:59:59'
@@ -36,9 +36,10 @@ if __name__ == '__main__':
 		4:'swarmCaldera.ipynb',
 		5:'swarmYuhaDesert.ipynb',
 		6:'swarmCaldera2nd.ipynb',
-		7:'RidgeCrest2019_recovered.ipynb'
+		7:'RidgeCrest2019_recovered.ipynb',
+		8:'swarmYuhaDesertFirstPeriod.ipynb'
 		}
-	keyno = 5
+	keyno = 8
 #---
 #---
 	PYFIL = PYFILdic[ keyno ] 
