@@ -16,8 +16,8 @@ if __name__ == '__main__':
 	durtn = '00:59:59'
 	mem = '256gb' #'4gb' #'64gb'
 	partition = 'bigmem' #'single' #'parallel' #'single'
-	argv = "-p BVAL 0.84 -p MC 1.5"
-#	argv = "-p BVAL 1.30 -p MC 3.0"
+	argv = "-p BVALL 0.84 -p MCC 1.5"
+#	argv = "-p BVALL 1.30 -p MCC 3.0"
 #	argv = "-p Df 2.0 -p quantile 0.05"
 #	argv = "-p quantile 0.05"
 #	argv = "-p n_thresh 0.001"
