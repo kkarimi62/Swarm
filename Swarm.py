@@ -13,7 +13,7 @@ if __name__ == '__main__':
 	jobname  = 'swarmCaldera' #'swarmYuhaDesertFirstPeriod1' #'yuhaDesertFit2nd' #'runRidgeCrest' #'runFillmore2015' 
 	readPath = os.getcwd() # + '/CLUSTER' # --- source
 	EXEC_DIR = '.'     #--- path for executable file
-	durtn = '24:59:59'
+	durtn = '23:59:59'
 	mem = '256gb' #'4gb' #'64gb'
 	partition = 'bigmem' #'single' #'parallel' #'single'
 #	argv = "-p BVALL 0.84 -p MCC 1.5"
