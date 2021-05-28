@@ -10,7 +10,7 @@ if __name__ == '__main__':
 	import os
 #
 	nruns	 = 1
-	jobname  = 'swarmCaldera' #'swarmYuhaDesertFirstPeriod1' #'yuhaDesertFit2nd' #'runRidgeCrest' #'runFillmore2015' 
+	jobname  = 'swarmCalderaFinerMesh' #'swarmYuhaDesertFirstPeriod1' #'yuhaDesertFit2nd' #'runRidgeCrest' #'runFillmore2015' 
 	readPath = os.getcwd() # + '/CLUSTER' # --- source
 	EXEC_DIR = '.'     #--- path for executable file
 	durtn = '23:59:59'
